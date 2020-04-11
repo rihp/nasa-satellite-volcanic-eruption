@@ -1,4 +1,4 @@
-,v_num,v_name,erup_num,erup_cat,vei,start_y,start_m,start_d,end_y,end_m,end_d,lat,long,start,end,delta
+,v_num,v_name,erup_num,erup_cat,vei,start_y,start_m,start_d,end_y,end_m,end_d,lat,lon,start,end,delta
 0,233020,"Fournaise, Piton de la",22343,Confirmed Eruption,,2020,2,10,2020,2,16,-21.244,55.708,2020-02-10,2020-02-16,6 days 00:00:00.000000000
 1,345020,Rincon de la Vieja,22346,Confirmed Eruption,,2020,1,31,2020,1,31,10.83,-85.324,2020-01-31,2020-01-31,0 days 00:00:00.000000000
 2,353010,Fernandina,22347,Confirmed Eruption,,2020,1,12,2020,1,12,-0.37,-91.55,2020-01-12,2020-01-12,0 days 00:00:00.000000000
