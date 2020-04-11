@@ -39,5 +39,13 @@ df['end'] = pd.to_datetime(df[['end_d','end_m','end_y']]
 df['delta'] = df.end - df.start
 df[['v_name', 'start', 'end', 'delta']].sort_values('delta', ascending=False)
 
+
+# ♠ OPTIMIZATION IDEA:
+##  drop also the eruption phases that started before the
+##  API's oldest data point (2015-06-13) or filter the
+##  events so that at least the end date is available
+
+#
+
 # Save the data we processed as a new dataset
 df.to_csv('OUTPUT/volcanic-explosions.csv')
