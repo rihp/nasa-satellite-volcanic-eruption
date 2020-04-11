@@ -4,12 +4,23 @@ import requests
 import pandas as pd
 
 # datetime module will probably give some errors as it's not imported with the same name
-from datetime import date
+import datetime
 from IPython.display import Image
 from vesuvius import *
 
-# Describe program usage instructions
+say_hi()
 
+# Describe program usage instructions
+# args
+# --version
+#
+# --year
+#
+# --month
+#
+# --update='False'
+#   will only reload the dataset and make the requests to the api when set to True
+#   when False, vesuvius will look for the cached data from the last update.
 
 # Data location INs and OUTs
 
@@ -26,12 +37,12 @@ from vesuvius import *
 
 
 # Filter data with arguments
-df = pd.read_csv('OUTPUT/volcanic-explosions.csv')
+#df = pd.read_csv('OUTPUT/volcanic-explosions.csv')
 
 
 
 # Print summary data
-df.describe
+#df.describe
 
 
 # Export to PDF
