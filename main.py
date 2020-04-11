@@ -8,10 +8,12 @@ import datetime
 from IPython.display import Image
 from vesuvius import *
 
-say_hi()
+# Welcome Message
+#say_hi()
 
 # Describe program usage instructions
-# args
+parser = argparse.ArgumentParser()
+parser.parse_args()
 # --version
 #
 # --year
