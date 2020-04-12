@@ -49,19 +49,35 @@ if len(args.month) != 2:
 #bash_command('python3 enricher.py') 
 ########################################################################################################
 
+
+
+
+
 # 05 - FILTER available data with arguments
 print(f'Analyzing date YYYY-MM: {str(args.year)}-{str(args.month)}')
 ## 
 #df_filtered = df[df.start_y == int(args.year)][df.start_m == int(args.month)]
 df_filtered = df[(df.start_y == int(args.year)) & (df.start_m == int(args.month))]
+
+## I don't know why, an `Unnamed: 0` column is added automatically. 
+df_filtered = df_filtered.drop(columns='Unnamed: 0')
+
 # ♠ OPTIMIZATION: SHOW AN ERROR MESSAGE WHEN THERE ARE NO REGISTERED EVENTS FOR THE SPECIFIED DATES
 print(df_filtered, '\n')
 print(f" ~ Resulting shape of the DataFrame:\n{df_filtered.shape} \n")
 ########################################################################################################
 
+
+
+
+
 # 06 - SUMMARY
 print(' ~ Summary of the data:\n ', df_filtered.describe())
 ########################################################################################################
+
+
+
+
 
 # 07 - EXPORT 
 # FPDF

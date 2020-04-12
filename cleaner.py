@@ -14,6 +14,7 @@ df = df.drop(columns = ['index','VEI Modifier', 'Start Year Modifier', 'Start Da
                    'End Day Modifier', 'Start Year Uncertainty', 'End Year Uncertainty', 'End Day Uncertainty',
                        'Area of Activity', 'Start Day Uncertainty', 'Evidence Method (dating)'])
 
+
 # And rename the columns that we are going to use                       
 df.columns = ['v_num', 'v_name', 'erup_num',
        'erup_cat', 'vei', 'start_y', 'start_m', 'start_d',
@@ -46,6 +47,8 @@ df[['v_name', 'start', 'end', 'delta']].sort_values('delta', ascending=False)
 ##  API's oldest data point (2015-06-13) or filter the
 ##  events so that at least the end date is available
 
+
+print(df.columns)
 
 # Save the data we processed as a new dataset
 df.to_csv('OUTPUT/volcanic-eruptions.csv')
