@@ -1,6 +1,9 @@
 # The functions of the project will be stored in this file
 import datetime
 import requests
+import pandas as pd
+from verbositymod import *
+
 
 def say_hi():
     print(f"""
@@ -11,6 +14,32 @@ def say_hi():
       Today is {datetime.date.today()}
     
     """)
+
+def timestamp_to_str(TimeStamp):
+    """
+    turns a pandas.tslib.Timestamp into a 'YYYY-MM-DD' string
+    """
+    print('Input: TimeStamp', TimeStamp)
+    """moment_in_time = {'year':TimeStamp.value.year, 
+                'month':TimeStamp.value.month,
+                'day':TimeStamp.value.day]
+    }"""
+    print(TimeStamp.year)
+    moment_in_time = [str(TimeStamp.year), str(TimeStamp.month), str(TimeStamp.day)]
+    print(moment_in_time)
+    print('processing Timestamp now')
+    # Add 0 at the begining of `MM` if MM between 01 and 09
+    if len(moment_in_time[1]) == 1:
+        moment_in_time[1] = '0'+str(moment_in_time[1])
+    
+    # Add 0 at the begining of `DD` if DD between 01 and 09
+    if len(moment_in_time[2]) == 1:
+        moment_in_time[2] = '0'+str(moment_in_time[2])
+
+    formatted_time = '-'.join(moment_in_time)
+    
+    return formatted_time
+
 
 def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     """Version 05.
@@ -31,11 +60,12 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
             The ammount of images available for that specific day
             ♠ Optimization Idea: Time sensitivity can be assured with knowledge of UTC time and datetime modules
     """
-    date = f"{YYYY}-{MM}-{DD}"
     
-    # Define types of image collections and size to retrieve
-    collections = {'nat': 'natural', 'enh':'enhanced'}
+    date = f"{str(YYYY)}-{str(MM)}-{str(DD)}"
+    print(f'trying to GET satellite data for this date: {date}')
 
+    # Define types of image collections and possible sizes to retrieve from API
+    collections = {'nat': 'natural', 'enh':'enhanced'}
     size = {'png': ['png', 'png'],
             'jpg': ['jpg', 'jpg'],
             'thumb': ['thumbs', 'jpg']}
@@ -55,9 +85,10 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     print(f"There are {len(res.json())} satellite images available for this date: {date}")
     
     # Parting from the recently-stored `data` variable store the following information:
-    # 1. Construct and store the img-resource url
-    # 2. Store the Centroid coordinates
-    # 3. Store the available images in the response.json()
+    #   1. Construct and store the img-resource url
+    #   2. Store the Centroid coordinates
+    #   3. Store the available images in the response.json()
+    #
     ## All of this is stored in a `satellite_images` list type
     ### ♠ OPTIMIZATION: Apparently, this function returns a complete list of the available images for that specific requested day.
     ### This data can be leveraged in future versions of vesuvius
@@ -71,6 +102,10 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     return satellite_images
 
 
+
+
+    return [img_urls, sat_lats, sat_lons, pics_that_day]
+
 def enrich_from_api(df):
     """Version '01'
     Depends on the getSat() function.
@@ -80,10 +115,12 @@ def enrich_from_api(df):
      - the `df` variable
 
     OUTPUT:
-    A list of lists, containing the `data` fetched for each requested event
-    After calling the function and asiging the returned data to a variable, the data should be immediately assigned to the new corresponding columns of the input `df`
+     - A list of lists, containing the `data` fetched for each requested event
+     - After calling the function and asiging the returned data to a variable, the data should be immediately assigned to the new corresponding columns of the input `df`
 
     """
+    print('Data enricher turned on')
+
     # What are we going to retrieve from each request?
     img_urls = []
     sat_lats = []
@@ -96,15 +133,23 @@ def enrich_from_api(df):
     ##   Check if the row in question has the data already
     ##   If it has it, copy it and add it to the new list
     ##   If it does not have the data, request and add it.
+
+    count = 0
     for phase_start in df['start']:
-        print()
-        print(phase_start)
-        
-        # Make the request to the API and store the data for a moment
-        ## Normally, the output from this request should include several image urls
-        ## at the next step of this function I pick only the last element.
+        """
+         Make the request to the API and store the data for a moment
+         Normally, the output from this request should include several image urls
+         at the next step of this function I pick only the last element.
+        """
+        timestamp_to_str(phase_start)
+        phase_start = timestamp_to_str(phase_start)
         phase_data = getSat('nat', 'thumb', *phase_start.split('-'))
+        print(f"`phase_data`: {phase_data}")
+        #phase_data = getSat('nat', 'thumb', phase_start.year, phase_start, phase_start.year)
         
+
+        count +=1
+
         # If there is data in the response, include the response data to the lists 
         if len(phase_data) > 0:
             
@@ -131,22 +176,24 @@ def enrich_from_api(df):
     
     return [img_urls, sat_lats, sat_lons, pics_that_day]
 
-
 def updateData():
-    user_confirmation = input("""WAIT A SECOND! ARE YOU SURE THAT YOU WANT TO UPDATE THE DATA?
+    user_confirmation = input("""
+    
+        WAIT A SECOND! ARE YOU SURE THAT YOU WANT TO UPDATE THE DATA?
        
-       THIS PROCESS WILL TAKE SOME TIME, AND IS *NOT RECOMMENDED*
-       UNLESS YOU KNOW WHAT YOU ARE DOING. YOU RISK LOSING THE 
-       CACHED DATA AND BEAKING THE REPORT FEATURES OF VESUIVIUS.
+        THIS PROCESS WILL TAKE SOME TIME, AND IS *NOT RECOMMENDED*
+        UNLESS YOU KNOW WHAT YOU ARE DOING. YOU RISK LOSING THE 
+        CACHED DATA AND BEAKING THE REPORT FEATURES OF VESUIVIUS.
        
-       To proceed with the update, type 'CONTINUE UPDATE'.
-       Else, if you want to skip the update, type 'NO'.""")
+        To proceed with the update, type 'CONTINUE'.
+        Else, if you want to skip the update, type 'NO'.
+        
+        """)
 
-    if user_confirmation == 'CONTINUE UPDATE':
-        print("""
-        This will take a while. Making one request for each registered volcanic eruptive phase""")
-        #Turn on verbose
-
+    if user_confirmation.upper() == 'CONTINUE':
+        print("This will take a while. Making one request for each registered volcanic eruptive phase")
+        # ♠♠ Turn on verbose
+        
         #Call the data cleaner
         
         #Specity which type of images the user wants to retrieve
@@ -158,6 +205,29 @@ def updateData():
         #Turn off verbose
     else: 
         print(' ~ Update canceled.')
+
+def loadCacheData(cached_data_csv_path):
+    """
+    Takes the `cached_data_csv_path` and loads it in the right format for use in the vesuvius data pipeline
+    When the function is called, it will `return` the loaded data, so one must assign it to a variable immediately.
+
+    The idea is to use this returned data as values which can be assigned to new columns of the input `df`.
+
+    INPUT: 
+     - `cached_data_csv_path
+    OUTPUT:
+     - A list of lists, containing the `data` fetched for each requested event
+        [img_urls, sat_lats, sat_lons, pics_that_day]
+    """
+    cached_df = pd.read_csv(cached_data_csv_path)
+    img_urls = cached_df['start_img']
+    sat_lats = cached_df['sat_lats']
+    sat_lons = cached_df['sat_lons']
+    pics_that_day = ['start_img_available_in_api']
+    
+
+    return [img_urls, sat_lats, sat_lons, pics_that_day]
+
 def report():
     pass
 
