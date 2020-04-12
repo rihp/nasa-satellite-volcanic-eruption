@@ -1,8 +1,5 @@
 import argparse
-#import requests
 import pandas as pd
- #datetime module will probably give some errors as it's not imported with the same name
-#from IPython.display import Image
 #import os
 #import subprocess
 from vesuvius import *
@@ -48,8 +45,16 @@ if len(args.month) != 2:
 # 04 - UPDATE
 ## Run data cleaner
 #bash_commad('python3 cleaner.py')
-## Run the df filler with API Data
-#bash_command('python3 enricher.py') 
+
+## Enrich the `df` with API Data by calling the function and storing the data in new columns
+print('About to fetch from API')
+new_data = enrich_from_api(df)
+
+# Store the new data in the following columns
+df['start_img'] = new_data[0]
+df['sat_lats'] = new_data[1]
+df['sat_lons'] = new_data[2]
+df['start_img_available_in_api'] = new_data[3]
 ########################################################################################################
 
 
