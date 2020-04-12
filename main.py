@@ -16,6 +16,9 @@ print('Hi,\n Welcome to Vesuvius Alpha!')
 
 # 01 - INPUTS AND OUTPUTS PATHS
 df = pd.read_csv('OUTPUT/volcanic-eruptions.csv') # maybe move this to Step 4, and only hold here the path to files
+# raw_data_path = 'INPUT/here.csv'
+# enriched_data_path = 'OUTPUT/there.csv'
+# df = pd.read_csv('OUTPUT/volcanic-eruptions.csv')
 ########################################################################################################
 
 
@@ -51,8 +54,6 @@ if len(args.month) != 2:
 
 
 
-
-
 # 05 - FILTER available data with arguments
 print(f'Analyzing date YYYY-MM: {str(args.year)}-{str(args.month)}')
 ## 
@@ -74,7 +75,6 @@ print(f" ~ Resulting shape of the DataFrame:\n{df_filtered.shape} \n")
 # 06 - SUMMARY
 print(' ~ Summary of the data:\n ', df_filtered.describe())
 ########################################################################################################
-
 
 
 

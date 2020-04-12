@@ -48,7 +48,5 @@ df[['v_name', 'start', 'end', 'delta']].sort_values('delta', ascending=False)
 ##  events so that at least the end date is available
 
 
-print(df.columns)
-
 # Save the data we processed as a new dataset
 df.to_csv('OUTPUT/volcanic-eruptions.csv')
