@@ -1,3 +1,5 @@
+import pandas as pd
+
 # Data Source:
 # https://www.kaggle.com/martincontreras/volcanic-eruptions-dataset-all-to-2020
 df = pd.read_excel('INPUT/volcanic_dataset.xls', header=1)
