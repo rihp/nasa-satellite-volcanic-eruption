@@ -1,7 +1,7 @@
+# The functions of the project will be stored in this file
 import datetime
 import requests
 
-# The functions of the project will be stored in this file
 def say_hi():
     print(f"""
     -----------------------
@@ -14,13 +14,22 @@ def say_hi():
 
 def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     """Version 05.
-     This function uses the `requests` module to GET the API data
+     This function uses the `requests` module to GET the API data from NASA's DSCOVER Satellite archived image data.
+
      Input:
         The image collection to request (natural or enhanced images)
         The img_type (full-size .png, mid-size .jpg, or thumbnail .jpg)
         The date arguments (YYYY, DD, MM)
-     It returns the relevant pieces of the respose.json()
-     Specifically, returns: the first-available img-url, the satellite coordinates for that first image, and the ammount of images available for that specific day
+
+    Output:
+        It returns the relevant pieces of the respose.json()
+        Specifically, returns: 
+            The first-available img-url
+            The satellite coordinates for that image
+                lat
+                lon
+            The ammount of images available for that specific day
+            ♠ Optimization Idea: Time sensitivity can be assured with knowledge of UTC time and datetime modules
     """
     date = f"{YYYY}-{MM}-{DD}"
     
@@ -128,10 +137,10 @@ def updateData():
        
        THIS PROCESS WILL TAKE SOME TIME, AND IS *NOT RECOMMENDED*
        UNLESS YOU KNOW WHAT YOU ARE DOING. YOU RISK LOSING THE 
-       CACHED DATA AND BEAKING THE REPORT FUNCTUIONALITIES.
+       CACHED DATA AND BEAKING THE REPORT FEATURES OF VESUIVIUS.
        
-       To proceed with the update, type 'CONTINUE UPDATE'. Else,
-       if you want to skip the update, type 'NO'.""")
+       To proceed with the update, type 'CONTINUE UPDATE'.
+       Else, if you want to skip the update, type 'NO'.""")
 
     if user_confirmation == 'CONTINUE UPDATE':
         print("""
@@ -147,7 +156,8 @@ def updateData():
         #Call the API data retriever
 
         #Turn off verbose
-
+    else: 
+        print(' ~ Update canceled.')
 def report():
     pass
 

@@ -8,44 +8,6 @@ import pandas as pd
 
 df = pd.read_csv('OUTPUT/volcanic-eruptions.csv')
 
-def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
-    
-    date = f"{YYYY}-{MM}-{DD}"
-    
-    # Define types of image collections and size 
-    collections = {'nat': 'natural', 'enh':'enhanced'}
-
-    size = {'png': ['png', 'png'],
-            'jpg': ['jpg', 'jpg'],
-            'thumb': ['thumbs', 'jpg']}
-    
-    
-    # Request API metadata using query parameters
-    host = f'https://epic.gsfc.nasa.gov'
-    metadata = f"{host}/api/{collections[collection]}/date/{date}"
-    res = requests.get(metadata, params=queryParams)
-    
-    
-    # Store reelevant data from requests' response body
-    data = []
-    for e in res.json():
-        data.append((e['image'], e['centroid_coordinates'], e['date']))
-    
-    
-    # Report status of query response
-    print(res.status_code, res.url)
-    print(f"There are {len(res.json())} satellite images available for this date: {date}")
-
-    
-    # Construct the image resource url
-    satellite_images = []
-    if len(data) > 0:
-        for e in data:
-            img = f"{host}/archive/{collections[collection]}/{YYYY}/{MM}/{DD}/{size[img_type][0]}/{e[0]}.{size[img_type][1]}"
-            satellite_images.append([img, e[1], len(res.json())])
-            
-    #Return relevant data as list
-    return satellite_images
 
 # Access the START dates on each eruptive phase
 
