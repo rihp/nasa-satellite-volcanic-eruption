@@ -10,7 +10,7 @@ from vesuvius import *
 
 # 00 - WELCOME MESSAGE
 #say_hi()
-print('hi, welcome to vesuvius alpha!')
+print('Hi,\n Welcome to Vesuvius Alpha!')
 ########################################################################################################
 
 
@@ -40,17 +40,18 @@ if len(args.year) != 4:
 if len(args.month) != 2:
     raise ValueError('The year has a wrong format. Try again using MM')
 ########################################################################################################
-print('STEP 03 DONE\n')
+#print('STEP 03 DONE\n')
 
 # 04 - UPDATE
 ## Run data cleaner
-#
+#bash_commad('python3 cleaner.py')
 ## Run the df filler with API Data
-# 
+#bash_command('python3 enricher.py') 
 ########################################################################################################
 
 # 05 - FILTER available data with arguments
 print(f'Analyzing date YYYY-MM: {str(args.year)}-{str(args.month)}')
+## 
 df_filtered = df[df.start_y == int(args.year)][df.start_m == int(args.month)]
 # ♠ OPTIMIZATION: SHOW AN ERROR MESSAGE WHEN THERE ARE NO REGISTERED EVENTS FOR THE SPECIFIED DATES
 print(df_filtered)
@@ -58,7 +59,7 @@ print(f" ~ Resulting shape of the DataFrame{df_filtered.shape}")
 ########################################################################################################
 
 # 06 - SUMMARY
-#df.describe
+print(df_filtered.describe())
 ########################################################################################################
 
 # 07 - EXPORT 

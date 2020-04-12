@@ -12,13 +12,13 @@ df = df.drop(columns = ['index','VEI Modifier', 'Start Year Modifier', 'Start Da
                    'End Day Modifier', 'Start Year Uncertainty', 'End Year Uncertainty', 'End Day Uncertainty',
                        'Area of Activity', 'Start Day Uncertainty', 'Evidence Method (dating)'])
 
-# And rename the ones we are going to use                       
+# And rename the columns that we are going to use                       
 df.columns = ['v_num', 'v_name', 'erup_num',
        'erup_cat', 'vei', 'start_y', 'start_m', 'start_d',
         'end_y', 'end_m', 'end_d', 'lat', 'lon']
 
-# Unify dates into a single column for start and end variables
-## first, turn the sting values to integers
+# Unify dates into a single column for `start` and `end` variables
+## first, turn the string values to integers
 toint = lambda x: int(x)
 df['start_d'] = df['start_d'].map(toint)
 df['start_m'] = df['start_m'].map(toint)
@@ -34,8 +34,7 @@ df['end'] = pd.to_datetime(df[['end_d','end_m','end_y']]
                    .astype(str).apply(' '.join, 1), format='%d %m %Y')
 
 
-
-# Calculate duration of eruption
+# Calculate duration of eruptive phase (a.k.a. `delta`)
 df['delta'] = df.end - df.start
 df[['v_name', 'start', 'end', 'delta']].sort_values('delta', ascending=False)
 
@@ -45,7 +44,6 @@ df[['v_name', 'start', 'end', 'delta']].sort_values('delta', ascending=False)
 ##  API's oldest data point (2015-06-13) or filter the
 ##  events so that at least the end date is available
 
-#
 
 # Save the data we processed as a new dataset
-df.to_csv('OUTPUT/volcanic-explosions.csv')
+df.to_csv('OUTPUT/volcanic-eruptions.csv')
