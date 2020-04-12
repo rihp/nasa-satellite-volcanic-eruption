@@ -11,6 +11,8 @@ def say_hi():
 def getSat():
     pass
 
+def enrich_from_api():
+    pass
 
 def updateData():
     user_confirmation = input("""WAIT A SECOND! ARE YOU SURE THAT YOU WANT TO UPDATE THE DATA?
