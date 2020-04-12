@@ -8,7 +8,9 @@ def say_hi():
       Welcome to Vesuvius 
        Version Alpha 001 
     -----------------------
-      Today is {datetime.date.today()}""")
+      Today is {datetime.date.today()}
+    
+    """)
 
 def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     """Version 05.

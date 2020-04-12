@@ -7,7 +7,6 @@ from vesuvius import *
 
 # 00 - WELCOME MESSAGE
 say_hi()
-print()
 ########################################################################################################
 
 
@@ -40,7 +39,6 @@ if len(args.year) != 4:
 if len(args.month) != 2:
     raise ValueError('The year has a wrong format. Try again using MM')
 ########################################################################################################
-#print('STEP 03 DONE\n')
 
 # 04 - UPDATE
 ## Run data cleaner
@@ -58,7 +56,6 @@ df['start_img_available_in_api'] = new_data[3]
 ########################################################################################################
 
 
-
 # 05 - FILTER available data with arguments
 print(f'Analyzing date YYYY-MM: {str(args.year)}-{str(args.month)}')
 ## 
@@ -73,18 +70,16 @@ print(df_filtered, '\n')
 print(f" ~ Resulting shape of the DataFrame:\n{df_filtered.shape} \n")
 ########################################################################################################
 
-
-
-
-
 # 06 - SUMMARY
 print(' ~ Summary of the data:\n ', df_filtered.describe())
+summary_df = df_filtered.describe()
 ########################################################################################################
 
-
-
-
 # 07 - EXPORT 
+print(' ~ Saving enriched data.')
+output_csv_path = 'OUTPUT/enriched-data.csv'
+df.to_csv(output_csv_path)
+
 # FPDF
 
 
