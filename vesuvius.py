@@ -66,9 +66,12 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
 
     # Define types of image collections and possible sizes to retrieve from API
     collections = {'nat': 'natural', 'enh':'enhanced'}
-    size = {'png': ['png', 'png'],
-            'jpg': ['jpg', 'jpg'],
-            'thumb': ['thumbs', 'jpg']}
+    size = {'png': {'prefix':'png',
+                    'sufix':'png']},
+            'jpg': {'prefix':'jpg',
+                    'sufix':'jpg']}
+            'thumb': {'prefix':'thumbs',
+                    'sufix':'jpg']}
     
     # Request API metadata using input arguments defined during the call of the function, as well as the query parameters
     host = f'https://epic.gsfc.nasa.gov'
@@ -95,16 +98,14 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     satellite_images = []
     if len(data) > 0:
         for e in data:
-            img = f"{host}/archive/{collections[collection]}/{YYYY}/{MM}/{DD}/{size[img_type][0]}/{e[0]}.{size[img_type][1]}"
+            # here the image url is constructed using available vars
+            img = f"{host}/archive/{collections[collection]}/{YYYY}/{MM}/{DD}/{size[img_type]['prefix']}/{e[0]}.{size[img_type]['sufix']}"
             satellite_images.append([img, e[1], len(res.json())])
             
     #Return relevant data as list
     return satellite_images
-
-
-
-
-    return [img_urls, sat_lats, sat_lons, pics_that_day]
+    # I dont know why this was here. probably deprecated line.
+    # return [img_urls, sat_lats, sat_lons, pics_that_day]
 
 def enrich_from_api(df):
     """Version '01'
