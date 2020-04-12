@@ -1,3 +1,5 @@
+import datetime
+
 # The functions of the project will be stored in this file
 def say_hi():
     print(f"""
@@ -5,7 +7,6 @@ def say_hi():
       Welcome to Vesuvius 
        Version Alpha 001 
     -----------------------
-    
     Today is {datetime.date.today()}""")
 
 def getSat():

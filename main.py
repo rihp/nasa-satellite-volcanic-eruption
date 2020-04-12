@@ -1,7 +1,7 @@
 import argparse
 #import requests
 import pandas as pd
-import datetime #datetime module will probably give some errors as it's not imported with the same name
+ #datetime module will probably give some errors as it's not imported with the same name
 #from IPython.display import Image
 #import os
 #import subprocess
@@ -9,8 +9,8 @@ from vesuvius import *
 ########################################################################################################
 
 # 00 - WELCOME MESSAGE
-#say_hi()
-print('Hi,\n Welcome to Vesuvius Alpha!')
+say_hi()
+print()
 ########################################################################################################
 
 
