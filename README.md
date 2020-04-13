@@ -1,15 +1,16 @@
-# nasa-volcanic-explosions
-The idea of this project was to practice the complete process of a data pipeline.
+# nasa-volcanic-eruptions
+![Satellite image of Planet Earth]('INPUT/epic_1b_20190611003634.png')
 
-We started with a dataset, clean it, and then enrich it with data from an external source.
-The program generated could be run from bash command line, and generate brief reports about the data.
+The objective of this project was to practice the complete process of a data pipeline; We started with a dataset which had to be cleaned, and then enriched with data from an external source.
+The program generated should be run from bash command line by runing `python3 main.py` and by giving it at least two arguments. The program should generate a brief `stdout` report about the data requested in the bash command.
 
-In this case, we are using a Volcanic Eruptions Dataset found on Kaggle.
-The dataset was posted by [ritmandotpy](https://github.com/ritmandotpy/volcanic_eruptions) but it is normally mantained by the [Smithsonian Institution's Global Volcanism Program](https://volcano.si.edu/).
+In this case, we are using a Volcanic Eruptions Dataset found on Kaggle. The dataset was posted by [ritmandotpy](https://github.com/ritmandotpy/volcanic_eruptions), and it is normally mantained by the [Smithsonian Institution's Global Volcanism Program](https://volcano.si.edu/).
 
-On the other hand, we are using NASA's Earth Polychromatic Imaging Camera (EPIC) satellite to look at our planet earth from a distand perspective during these eruption events.
+On the other hand, we are using NASA's Earth Polychromatic Imaging Camera (EPIC) satellite's archive API to look at our planet earth from 1 million miles away on a specified date.
 
 ![Deep Space Climate Observatory](INPUT/DSCOVR.jpg)
+
+When filtering dates,
 
 Active volcanoes go through eruptive phases that can last from a day to years. During these phases, there are moments where the volcano does not show any activity.
 
