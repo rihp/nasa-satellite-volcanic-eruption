@@ -67,11 +67,11 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     # Define types of image collections and possible sizes to retrieve from API
     collections = {'nat': 'natural', 'enh':'enhanced'}
     size = {'png': {'prefix':'png',
-                    'sufix':'png']},
+                    'sufix':'png'},
             'jpg': {'prefix':'jpg',
-                    'sufix':'jpg']}
+                    'sufix':'jpg'},
             'thumb': {'prefix':'thumbs',
-                    'sufix':'jpg']}
+                    'sufix':'jpg'}}
     
     # Request API metadata using input arguments defined during the call of the function, as well as the query parameters
     host = f'https://epic.gsfc.nasa.gov'
