@@ -7,20 +7,15 @@ import modules.messenger as messenger
 
 # 00 - WELCOME MESSAGE
 say_hi()
-########################################################################################################
 
 # 01 - INPUT / OUTPUT PATHS
-# INPUTS
-## RAW Data Source: https://www.kaggle.com/martincontreras/volcanic-eruptions-dataset-all-to-2020
-## OR SMITHSONIAN INSTITUTE
-raw_dataset_path = 'INPUT/volcanic_dataset.xls' 
+raw_dataset_path = 'INPUT/volcanic_dataset.xls' # RAW Data Source: SMITHSONIAN INSTITUTE or https://www.kaggle.com/martincontreras/volcanic-eruptions-dataset-all-to-2020
 cached_data_csv_path = 'OUTPUT/enriched-data-cache.csv'
 report_cache_csv_path = 'OUTPUT/report-cache.csv'
 # OUTPUTS
 output_csv_path = 'OUTPUT/enriched-data.csv'
 pdf_output_path = 'OUTPUT/generated-pdf.pdf'
 # Image outputs can be configured here
-
 
 # 02 - INSTRUCTIONS AND ARGUMENTS
 parser = argparse.ArgumentParser(description="Vesuvius is a retriever of satellite images. It currently uses a dataset containing volcanic eruptions and matches it with available photos from NASA's DSCOVR satellite, using the 'EPIC' API. The functionality of vesuvius has been desinged to be a modular program, in the sense that one could input a different dataset with relevant dates, and get the available satellite images from that date; Note that the DSCOVR satellite was launched into space on 2015, so older data will not be available. Also, very recent dates may not be available in the API's archive. DISCLAIMER: Use at your own risk.")
@@ -30,8 +25,6 @@ parser.add_argument('--update', help="Functionality under development; When this
                                  action='store_true')
 parser.add_argument('--mailto', help="sends an email to the specified email.")
 # parser.add_argument('--version', help="displays vesuvius' version")
-
-
 
 # 03 -PARSE ARGS AND CATCH ERRORS
 args = parser.parse_args()
