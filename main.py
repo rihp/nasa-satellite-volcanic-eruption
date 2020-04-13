@@ -2,6 +2,7 @@ import argparse
 import pandas as pd
 from vesuvius import *
 from cleaner import dataCleaner
+from presenter import generate_report
 
 # 00 - WELCOME MESSAGE
 say_hi()
@@ -87,4 +88,7 @@ print(" ~ Saving enriched data and caching report at 'OUTPUT' folder")
 df.to_csv(output_csv_path)
 df_filtered.to_csv(report_cache_csv_path)
 
-# FPDF
+# 08 - FPDF
+print(" ~ Generating pdf report at 'OUTPUT' folder")
+
+generate_report(df_filtered, 'OUTPUT/test-report.pdf')
