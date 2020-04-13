@@ -3,7 +3,7 @@ import pandas as pd
 from vesuvius import *
 from cleaner import dataCleaner
 from presenter import generate_report
-from messenger import *
+import messenger
 
 # 00 - WELCOME MESSAGE
 say_hi()
@@ -18,6 +18,7 @@ cached_data_csv_path = 'OUTPUT/enriched-data-cache.csv'
 report_cache_csv_path = 'OUTPUT/report-cache.csv'
 # OUTPUTS
 output_csv_path = 'OUTPUT/enriched-data.csv'
+pdf_output_path = 'OUTPUT/generated-pdf.pdf'
 # Image outputs can be configured here
 
 
@@ -90,8 +91,9 @@ df_filtered.to_csv(report_cache_csv_path)
 print(" ~ Generating pdf report at 'OUTPUT' folder")
 
 report_kwargs = {'requested_year':args.year, 'requested_month':args.month}
-generate_report(df_filtered, 'OUTPUT/test-report.pdf', report_kwargs)
+generate_report(df_filtered, pdf_output_path, report_kwargs)
 
 # 09 - EMAIL
 if args.mailto:
-    send_text_email('senderemailshouldgohere', args.mailto ,'This is the `text_message` passed as an argument to the `send_text_email()` function called from main.py')
+    messenger.send_attachment_email('senderemailshouldgohere', args.mailto ,'This is the `text_message` passed as an argument to the `send_text_email()` function called from main.py',
+        pdf_output_path)
