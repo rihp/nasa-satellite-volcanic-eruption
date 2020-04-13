@@ -7,7 +7,7 @@ def generate_report(df, output_pdf_path, kwargs):
     A script that takes a dataframe and outputs the relevant data as a pdf
     """
     # Define relevant columns in df
-    df_unfiltered = df
+    df_unfiltered = df # save a copy of the complete df
     df = df[['v_name', 'start_y', 'start_m', 'start_d', 'delta', 'lat', 'lon', 'sat_lats', 'sat_lons']]
     pdf = FPDF("P","mm","A4")
     pdf.add_page()
@@ -108,6 +108,13 @@ def generate_report(df, output_pdf_path, kwargs):
         """
         pdf.add_page()
         page_header()
+        pdf.cell(0, 8, f"Volcano name: {pandas_row['v_name']}",0,1)
+        pdf.cell(0, 8, f"Volcano coordinates [lat:{pandas_row['lat']}, lon{pandas_row['lon']}]",0,1)
+        pdf.cell(0, 8, f"First available satellite image: {pandas_row['start_img']}",0,1)
+        pdf.cell(0, 8, f"Total satellite images available: {pandas_row['start_img_available_in_api']}",0,1)
+        
+
+#        pdf.cell()
         pass
     
     """
@@ -116,5 +123,11 @@ def generate_report(df, output_pdf_path, kwargs):
             pdf.cell(0,10,f'Volcano name: {df.iloc[i]}',0,1)
             #print(df.iloc[i])
     """
+
+    for row in tableValues(df_unfiltered):
+        #for val in row:
+            new_event_page(row)
+        
+
 
     pdf.output(output_pdf_path, 'F')
