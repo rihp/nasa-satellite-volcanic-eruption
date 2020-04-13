@@ -233,8 +233,13 @@ def loadCacheData(cached_data_csv_path):
     
     return df
 
-def report():
-    pass
+def data_report(df):
+    """
+    takes a pandas `df`, prints it's description and returns it in the end
+    """
+    print(' ~ Summary of the data:\n ', df.describe())
+    summary_df = df.describe()
+    return summary_df
 
 def export_data():
     pass

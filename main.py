@@ -55,12 +55,11 @@ def main(args):
     
     # 06 - EXPORT 
     print(" ~ Saving enriched data and caching report at 'OUTPUT' folder")
-    df.to_csv(output_csv_path)
-    df_filtered.to_csv(report_cache_csv_path)
+    df.to_csv(output_csv_path, index=False)
+    df_filtered.to_csv(report_cache_csv_path, index=False)
 
-    # 07 - SUMMARY
-    print(' ~ Summary of the data:\n ', df_filtered.describe())
-    summary_df = df_filtered.describe()
+    # 07 REPORTING - Takes a dataframe and does returns a pandas .describe() of it
+    data_report(df_filtered)
 
     # 08 - FPDF
     print(" ~ Generating pdf report at 'OUTPUT' folder")
