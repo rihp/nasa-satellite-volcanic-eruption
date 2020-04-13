@@ -49,12 +49,11 @@ else:
 
         ## Enrich the `df` with API Data by calling the function and storing the data in new columns
         print(' ~ About to fetch from API, using the `enrich_from_api(df)` call')
-        loaded_data_list = enrich_from_api(df)
-        print(' ~ About to call the `updateData()` function')
-        df['start_img'] = loaded_data_list[0]
-        df['sat_lats'] = loaded_data_list[1]
-        df['sat_lons'] = loaded_data_list[2]
-        df['start_img_available_in_api'] = loaded_data_list[3]
+        df = enrich_from_api(df)
+        #df['start_img'] = loaded_data_list[0]
+        #df['sat_lats'] = loaded_data_list[1]
+        #df['sat_lons'] = loaded_data_list[2]
+        #df['start_img_available_in_api'] = loaded_data_list[3]
     else:
         print(f' ~ Loading Cached Data from path: {cached_data_csv_path}')
         df = pd.read_csv(cached_data_csv_path)

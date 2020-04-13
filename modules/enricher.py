@@ -55,9 +55,15 @@ def enrich_from_api():
             pics_that_day.append(0)
             
             
-    # POSSIBLY INCLUDE A ZIP HERE ~
+    # DO I NEED TO INCLUDE A ZIP HERE?
     
-    return [img_urls, sat_lats, sat_lons, pics_that_day]
+    #creating the new columns
+    df['start_img'] = img_urls
+    df['sat_lats'] = sat_lats
+    df['sat_lons'] = sat_lons
+    df['start_img_available_in_api'] = pics_that_day
+
+    return df 
 
 
 # Watch out, this cell takes about 4 minutes to run
