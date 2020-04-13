@@ -20,7 +20,15 @@ def generate_report(df, output_pdf_path):
     page_header()
     pdf.cell(0, 8, f'This report was generated on: {datetime.datetime.today()}',0,1)
 
-    #pdf.cell(0, 8, f'Requested date(YYYY-MM): {args.year}{args.month}',0,1)
+    # Specify the requested dates for the report
+    # pdf.cell(0, 8, f'Requested date(YYYY-MM): {args.year}{args.month}',0,1)
+    # pdf.
+    pdf.cell(0, 8, f'Available data: {df.shape[0]} rows and {df.shape[1]} columns.',0,1)
+    pdf.cell(0, 8, f'Volcanoes with registered eruptions on requested date:',0,1)
+
+    for v_name in df.v_name:
+        pdf.cell(0, 8, f'   - {v_name}',0,1)
+
 
 
     def new_event_page(pandas_row):
