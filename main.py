@@ -91,4 +91,5 @@ df_filtered.to_csv(report_cache_csv_path)
 # 08 - FPDF
 print(" ~ Generating pdf report at 'OUTPUT' folder")
 
-generate_report(df_filtered, 'OUTPUT/test-report.pdf')
+report_kwargs = {'requested_year':args.year, 'requested_month':args.month}
+generate_report(df_filtered, 'OUTPUT/test-report.pdf', report_kwargs)
