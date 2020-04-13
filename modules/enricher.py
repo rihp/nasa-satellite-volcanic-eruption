@@ -1,4 +1,6 @@
-# Fills dataset with image urls
+"""
+This module enriches a datasets with satellite images from NASA's EPIC API
+"""
 import requests
 #import os
 #from IPython.display import Image
