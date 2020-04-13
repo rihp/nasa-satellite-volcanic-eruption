@@ -4,18 +4,9 @@ from modules.vesuvius import *
 from modules.cleaner import dataCleaner
 from modules.presenter import generate_report
 import modules.messenger as messenger
+from modules.config import * # Input and output paths saved here
 
-# 00 - WELCOME MESSAGE
-say_hi()
-
-# 01(a) - INPUT Paths
-raw_dataset_path = 'INPUT/volcanic_dataset.xls' # RAW Data Source: SMITHSONIAN INSTITUTE or https://www.kaggle.com/martincontreras/volcanic-eruptions-dataset-all-to-2020
-cached_data_csv_path = 'OUTPUT/enriched-data-cache.csv'
-report_cache_csv_path = 'OUTPUT/report-cache.csv'
-# 01(B) - OUTPUT Paths
-output_csv_path = 'OUTPUT/enriched-data.csv'
-pdf_output_path = 'OUTPUT/generated-pdf.pdf'
-# Image outputs can be configured here
+say_hi() # WELCOME MESSAGE
 
 def parserFunction():
     # 02 - INSTRUCTIONS AND ARGUMENTS
@@ -61,15 +52,15 @@ def main(args):
     #df_filtered = df_filtered.drop(columns='Unnamed: 0') # I don't know why, an `Unnamed: 0` column is added automatically. 
 
     print(df_filtered) # ♠ OPTIMIZATION: SHOW AN ERROR MESSAGE WHEN THERE ARE NO REGISTERED EVENTS FOR THE SPECIFIED DATES
-
-    # 06 - SUMMARY
-    print(' ~ Summary of the data:\n ', df_filtered.describe())
-    summary_df = df_filtered.describe()
-
-    # 07 - EXPORT 
+    
+    # 06 - EXPORT 
     print(" ~ Saving enriched data and caching report at 'OUTPUT' folder")
     df.to_csv(output_csv_path)
     df_filtered.to_csv(report_cache_csv_path)
+
+    # 07 - SUMMARY
+    print(' ~ Summary of the data:\n ', df_filtered.describe())
+    summary_df = df_filtered.describe()
 
     # 08 - FPDF
     print(" ~ Generating pdf report at 'OUTPUT' folder")
