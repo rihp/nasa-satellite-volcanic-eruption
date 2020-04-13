@@ -1,24 +1,20 @@
 import argparse
 import pandas as pd
-#import os
-#import subprocess
 from vesuvius import *
 from cleaner import dataCleaner
-#from verbositymod import *
-########################################################################################################
 
 # 00 - WELCOME MESSAGE
 say_hi()
 ########################################################################################################
 
-# 01 - INPUTS AND OUTPUTS PATHS
+# 01 - INPUT / OUTPUT PATHS
 # INPUTS
 ## RAW Data Source: https://www.kaggle.com/martincontreras/volcanic-eruptions-dataset-all-to-2020
 ## OR SMITHSONIAN INSTITUTE
 raw_dataset_path = 'INPUT/volcanic_dataset.xls' 
 cached_data_csv_path = 'OUTPUT/enriched-data-cache.csv'
 report_cache_csv_path = 'OUTPUT/report-cache.csv'
-# OUTS
+# OUTPUTS
 output_csv_path = 'OUTPUT/enriched-data.csv'
 # Image outputs can be configured here
 ########################################################################################################
@@ -47,37 +43,30 @@ if args.update == False:
     df = pd.read_csv(cached_data_csv_path)
     loaded_data_list = loadCacheData(cached_data_csv_path)
 else:
-    updateData()
-    print(f' ~ updating data...\n ~ Loading RAW Data from path: {cached_data_csv_path}')
-    ## Run data cleaner
-    #bash_commad('python3 cleaner.py')
-    df = pd.read_excel(raw_dataset_path, header=1)
-    df = dataCleaner(df)
+    user_response = updateData()
+    if user_response.upper() == 'CONTINUE':
+        print(f' ~ updating data...\n ~ Loading RAW Data from path: {cached_data_csv_path}')
+        ## Run data cleaner
+        df = pd.read_excel(raw_dataset_path, header=1)
+        df = dataCleaner(df)
 
-    ## Enrich the `df` with API Data by calling the function and storing the data in new columns
-    print(' ~ About to fetch from API, using the `enrich_from_api(df)` call')
-    loaded_data_list = enrich_from_api(df)
-    print(' ~ About to call the `updateData()` function')
+        ## Enrich the `df` with API Data by calling the function and storing the data in new columns
+        print(' ~ About to fetch from API, using the `enrich_from_api(df)` call')
+        loaded_data_list = enrich_from_api(df)
+        print(' ~ About to call the `updateData()` function')
 
-    df['start_img'] = loaded_data_list[0]
-    df['sat_lats'] = loaded_data_list[1]
-    df['sat_lons'] = loaded_data_list[2]
-    df['start_img_available_in_api'] = loaded_data_list[3]
-
-
-# Store the new data in the following columns
-#df['start_img'] = new_data[0]
-#df['sat_lats'] = new_data[1]
-#df['sat_lons'] = new_data[2]
-#df['start_img_available_in_api'] = new_data[3]
-########################################################################################################
-
+        df['start_img'] = loaded_data_list[0]
+        df['sat_lats'] = loaded_data_list[1]
+        df['sat_lons'] = loaded_data_list[2]
+        df['start_img_available_in_api'] = loaded_data_list[3]
+    else:
+        print(f' ~ Loading Cached Data from path: {cached_data_csv_path}')
+        df = pd.read_csv(cached_data_csv_path)
+        loaded_data_list = loadCacheData(cached_data_csv_path)        
 
 
 # 05 - FILTER available data with arguments
 print(f'Analyzing date YYYY-MM: {str(args.year)}-{str(args.month)}')
-## 
-#df_filtered = df[df.start_y == int(args.year)][df.start_m == int(args.month)]
 df_filtered = df[(df.start_y == int(args.year)) & (df.start_m == int(args.month))]
 
 ## I don't know why, an `Unnamed: 0` column is added automatically. 
@@ -99,5 +88,3 @@ df.to_csv(output_csv_path)
 df_filtered.to_csv(report_cache_csv_path)
 
 # FPDF
-
-#confidence_boost()

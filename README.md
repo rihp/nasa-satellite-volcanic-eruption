@@ -1,5 +1,5 @@
 # nasa-volcanic-eruptions
-![Satellite image of Planet Earth]('INPUT/epic_1b_20190611003634.png')
+![Satellite image of Planet Earth](INPUT/epic_1b_20190611003634.png)
 
 The objective of this project was to practice the complete process of a data pipeline; We started with a dataset which had to be cleaned, and then enriched with data from an external source.
 The program generated should be run from bash command line by runing `python3 main.py` and by giving it at least two arguments. The program should generate a brief `stdout` report about the data requested in the bash command.

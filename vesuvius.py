@@ -24,10 +24,10 @@ def timestamp_to_str(TimeStamp):
                 'month':TimeStamp.value.month,
                 'day':TimeStamp.value.day]
     }"""
-    print(TimeStamp.year)
+    print(TimeStamp.year, TimeStamp.month)
     moment_in_time = [str(TimeStamp.year), str(TimeStamp.month), str(TimeStamp.day)]
-    print(moment_in_time)
-    print('processing Timestamp now')
+    #print(moment_in_time)
+    #print('processing Timestamp now')
     # Add 0 at the begining of `MM` if MM between 01 and 09
     if len(moment_in_time[1]) == 1:
         moment_in_time[1] = '0'+str(moment_in_time[1])
@@ -62,7 +62,7 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     """
     
     date = f"{str(YYYY)}-{str(MM)}-{str(DD)}"
-    print(f'trying to GET satellite data for this date: {date}')
+    print(f'Trying to GET satellite data for this date: {date}')
 
     # Define types of image collections and possible sizes to retrieve from API
     collections = {'nat': 'natural', 'enh':'enhanced'}
@@ -76,6 +76,7 @@ def getSat(collection, img_type, YYYY,MM,DD, queryParams=dict()):
     # Request API metadata using input arguments defined during the call of the function, as well as the query parameters
     host = f'https://epic.gsfc.nasa.gov'
     metadata = f"{host}/api/{collections[collection]}/date/{date}"
+    print(metadata)
     res = requests.get(metadata, params=queryParams)
     
     # Store relevant data from requests' response body as a `data` list type
@@ -184,7 +185,7 @@ def updateData():
        
         THIS PROCESS WILL TAKE SOME TIME, AND IS *NOT RECOMMENDED*
         UNLESS YOU KNOW WHAT YOU ARE DOING. YOU RISK LOSING THE 
-        CACHED DATA AND BEAKING THE REPORT FEATURES OF VESUIVIUS.
+        CACHED DATA AND BEAKING THE REPORT FEATURES OF VESUVIUS.
        
         To proceed with the update, type 'CONTINUE'.
         Else, if you want to skip the update, type 'NO'.
@@ -204,8 +205,10 @@ def updateData():
         #Call the API data retriever
 
         #Turn off verbose
+        return user_confirmation.upper()
     else: 
         print(' ~ Update canceled.')
+        return user_confirmation.upper()
 
 def loadCacheData(cached_data_csv_path):
     """
