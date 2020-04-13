@@ -1,9 +1,9 @@
 import argparse
 import pandas as pd
-from vesuvius import *
-from cleaner import dataCleaner
-from presenter import generate_report
-import messenger
+from modules.vesuvius import *
+from modules.cleaner import dataCleaner
+from modules.presenter import generate_report
+import modules.messenger as messenger
 
 # 00 - WELCOME MESSAGE
 say_hi()
