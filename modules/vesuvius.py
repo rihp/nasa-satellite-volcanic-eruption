@@ -212,6 +212,8 @@ def updateData():
 
 def loadCacheData(cached_data_csv_path):
     """
+    FUNCTION NOT IN USE AS OF 2020-04-13
+    
     Takes the `cached_data_csv_path` and loads it in the right format for use in the vesuvius data pipeline
     When the function is called, it will `return` the loaded data, so one must assign it to a variable immediately.
 
@@ -224,13 +226,12 @@ def loadCacheData(cached_data_csv_path):
         [img_urls, sat_lats, sat_lons, pics_that_day]
     """
     cached_df = pd.read_csv(cached_data_csv_path)
-    img_urls = cached_df['start_img']
-    sat_lats = cached_df['sat_lats']
-    sat_lons = cached_df['sat_lons']
-    pics_that_day = ['start_img_available_in_api']
+    #img_urls = cached_df['start_img']
+    #sat_lats = cached_df['sat_lats']
+    #sat_lons = cached_df['sat_lons']
+    #pics_that_day = ['start_img_available_in_api']
     
-
-    return [img_urls, sat_lats, sat_lons, pics_that_day]
+    return df
 
 def report():
     pass
