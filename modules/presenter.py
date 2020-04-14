@@ -13,8 +13,11 @@ def generate_report(df, output_pdf_path, kwargs):
     pdf.add_page()
     def page_header():
         pdf.set_font('Arial',style='B', size=16)
-        pdf.cell(0, 10, 'Vesuvius Alpha', 1,1)
+        pdf.set_text_color(255)
+        pdf.set_fill_color(230,130,0)
+        pdf.cell(0, 10, 'Vesuvius Alpha', 0,1, align='C', fill=True)
         pdf.set_font('Arial',style='', size=10)
+        pdf.set_text_color(0)
         pdf.cell(0, 8, 'A python project by Roberto Henríquez Perozo.',0,1)
         pdf.cell(0, 8, 'Data Analytics Bootcamp - IronHack Madrid.',0,1)
     
@@ -108,9 +111,23 @@ def generate_report(df, output_pdf_path, kwargs):
         """
         pdf.add_page()
         page_header()
-        pdf.cell(0, 8, f"Volcano name: {pandas_row['v_name']}",0,1)
-        pdf.cell(0, 8, f"Volcano coordinates [lat:{pandas_row['lat']}, lon{pandas_row['lon']}]",0,1)
-        pdf.cell(0, 8, f"First available satellite image: {pandas_row['start_img']}",0,1)
+
+        pdf.set_font('Arial', 'B', 14)
+        pdf.cell(0, 8, f"Volcano name:",0,1)
+        pdf.cell(0, 8, f"  {pandas_row['v_name']}",0,1)
+
+        pdf.set_font('Arial', 'B', 14)
+        pdf.cell(0, 8, f"Volcano coordinates:",0,1)
+        pdf.set_font('Arial', '', 12)
+        pdf.cell(0, 8, f"  [lat:{pandas_row['lat']}, lon{pandas_row['lon']}]",0,1)
+
+
+        pdf.set_font('Arial', 'B', 14)
+        pdf.cell(0, 8, f"First available satellite image:",0,1)
+        pdf.set_font('Arial', '', 12)
+        pdf.cell(0, 8, f"  {pandas_row['start_img']}",0,1)
+
+        pdf.set_font('Arial', 'B', 14)
         pdf.cell(0, 8, f"Total satellite images available: {pandas_row['start_img_available_in_api']}",0,1)
         
 
