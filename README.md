@@ -8,6 +8,7 @@ In this case, we are using a Volcanic Eruptions Dataset found on Kaggle. The dat
 
 On the other hand, we are using NASA's Earth Polychromatic Imaging Camera (EPIC) satellite's archive API to look at our planet earth from 1 million miles away on a specified date.
 
+
 ![Deep Space Climate Observatory](INPUT/DSCOVR.jpg)
 
 When filtering dates,
@@ -19,6 +20,16 @@ The DSCOVR satellite was launched on 2015 by SpaceX's Falcon 9 rocket, and it's 
 The idea of this project was to use NASA's EPIC API and volcano eruption data to find the available images from the satellite for those specific dates.
 
 The resulting images will still be hosted at the NASA archive.
+
+##  Getting started:
+∫
+requires you to install python 3 or higher
+
+0. Use the dev branch as it was most stable last I tried : `git checkout presenter-dev`
+1. running `python3 main.py` or `python main.py` depending on your configuration will give you the welcome screen and instructions.
+2. provide a year and a month to query (`python3 main.py YYYY MM`)
+3. open the PDF report on `/OUTPUT` folder
+
 
 To read more about the API: 
 https://epic.gsfc.nasa.gov/about/api

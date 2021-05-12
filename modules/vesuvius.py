@@ -2,7 +2,7 @@
 import datetime
 import requests
 import pandas as pd
-from verbositymod import *
+#from verbositymod import *
 
 
 def say_hi():
