@@ -18,6 +18,9 @@ def parserFunction():
     parser.add_argument('--mailto', help="sends an email to the specified email.")
     #parser.add_argument('--version', help="displays vesuvius' version", )
 
+    parser.add_argument('--vision', help="Functionality under development; Queries the satelite images for that month arbitrarily, regardless if there were volcanic eruptions during that period.")
+
+
     # 03 -PARSE ARGS AND CATCH ERRORS, like wrong lengths or formats
     args = parser.parse_args()
     if len(args.year) != 4:
@@ -28,7 +31,7 @@ def parserFunction():
     return args
 
 def main(args):
-       # 04 - LOAD DATA AND UPDATE
+       # 04 - LOAD VOLCANIC ERUPTION DATA AND UPDATE 
     if args.update == False:
         print(f' ~ Loading Cached Data from path: {cached_data_csv_path}')
         df = pd.read_csv(cached_data_csv_path)
